@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "binary"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MetricType {
+  speed
+  strength
+  stamina
+}
+
+enum Unit {
+  kg
+  meters_per_second
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+model Athlete {
+  id                String              @id @default(uuid()) @db.VarChar(36)
+  name              String
+  active            Boolean             @default(true)
+  age               Int
+  team              String
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @default(now()) @updatedAt
+  PerformanceMetric PerformanceMetric[]
+}
+
+model PerformanceMetric {
+  id         String     @id @default(uuid()) @db.VarChar(36)
+  athlete    Athlete    @relation(fields: [athleteId], references: [id])
+  athleteId  String     @db.VarChar(36)
+  metricType MetricType
+  value      Float
+  unit       Unit
+  timestamp  DateTime
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @default(now()) @updatedAt
+}
+
+model PasswordRecoveryToken {
+  id        String   @id @default(uuid()) @db.VarChar(36)
+  userId    String   @unique @db.VarChar(36)
+  token     String
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id                    String                 @id @default(uuid()) @db.VarChar(36)
+  email                 String
+  password              String
+  role                  Role
+  PasswordRecoveryToken PasswordRecoveryToken?
+  active                Boolean                @default(true)
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @default(now()) @updatedAt
+
+  @@unique([email])
+}

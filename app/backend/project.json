@@ -21,6 +21,13 @@
           "buildTarget": "app-backend:build:production"
         }
       }
+    },
+    "seed": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ts-node --compiler-options {\"module\":\"CommonJS\"} /Users/mauriciogallego/Desktop/proyectos/test/vitruve/app/backend/prisma/seeders/seed.ts",
+        "cwd": "apps/backend"
+      }
     }
   }
 }

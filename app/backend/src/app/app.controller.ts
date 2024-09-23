@@ -1,13 +1,25 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, VERSION_NEUTRAL } from '@nestjs/common';
+import { Public } from '../auth/public.decorator';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-import { AppService } from './app.service';
-
-@Controller()
+@Controller({
+  version: VERSION_NEUTRAL,
+})
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get()
-  getData() {
-    return this.appService.getData();
+  @ApiOperation({ summary: 'Root endpoint' })
+  @ApiResponse({
+    status: 200,
+    description: 'Successful response',
+    content: {
+      'application/json': {
+        schema: { type: 'string' },
+        example: 'Api',
+      },
+    },
+  })
+  @Public()
+  @Get('/')
+  getRoot(): string {
+    return 'Api';
   }
 }
