@@ -1,0 +1,10 @@
+{
+  "name": "app-frontend",
+  "devDependencies": {
+    "@capacitor/cli": "^3.2.5"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.56.2",
+    "@tanstack/react-query-devtools": "^5.56.2"
+  }
+}
