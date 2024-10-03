@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "backend": "nx serve app-backend",
-    "frontend": "nx serve app-backend"
+    "test:backend": "nx e2e app-backend-e2e",
+    "frontend": "nx serve app-frontend"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} /Users/mauriciogallego/Desktop/proyectos/test/vitruve/app/backend/prisma/seeders/seed.ts"
@@ -19,6 +20,7 @@
     "@eslint/js": "^9.8.0",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
+    "@nrwl/jest": "^19.8.3",
     "@nrwl/linter": "^19.8.0",
     "@nrwl/nest": "^19.8.0",
     "@nrwl/react": "^19.8.0",
@@ -49,6 +51,7 @@
     "@types/node": "~18.16.9",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.0",
+    "@types/supertest": "^6.0.2",
     "babel-jest": "^29.7.0",
     "cypress": "^13.13.0",
     "eslint": "^8.57.1",
@@ -65,6 +68,7 @@
     "prettier": "^2.6.2",
     "prisma": "^5.19.1",
     "react-refresh": "^0.10.0",
+    "supertest": "^7.0.0",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2",
@@ -75,15 +79,16 @@
     "@capacitor/core": "^3.2.5",
     "@ionic/react": "^5.8.3",
     "@ionic/react-router": "^5.8.3",
-    "@kiyasov/platform-hono": "^1.3.12",
     "@nestjs/common": "^10.0.2",
     "@nestjs/config": "^3.2.3",
     "@nestjs/core": "^10.0.2",
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/passport": "^10.0.3",
+    "@nestjs/platform-express": "^10.4.4",
     "@nestjs/swagger": "^7.4.2",
     "axios": "^1.6.0",
     "bcryptjs": "^2.4.3",
+    "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "graphql": "^16.9.0",
     "ionicons": "^5.5.3",

@@ -1,5 +1,4 @@
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
-import { HonoAdapter, NestHonoApplication } from '@kiyasov/platform-hono';
 import { AppModule } from './app/app.module';
 import { PrismaService } from './database/prisma.service';
 import { ConfigService } from '@nestjs/config';
@@ -11,14 +10,10 @@ import {
 import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestHonoApplication>(
-    AppModule,
-    new HonoAdapter(),
-    {
-      rawBody: true,
-      cors: true,
-    }
-  );
+  const app = await NestFactory.create(AppModule, {
+    cors: { origin: '*' },
+  });
+
   const configService: ConfigService = app.get(ConfigService);
 
   app.enableCors();
