@@ -17,7 +17,6 @@
         "main": "app/frontend/src/main.tsx",
         "tsConfig": "app/frontend/tsconfig.app.json",
         "assets": [
-          "app/frontend/src/favicon.ico",
           "app/frontend/src/assets",
           "./app/frontend/src/manifest.json"
         ],
