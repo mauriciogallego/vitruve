@@ -3,10 +3,12 @@ import { Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // Pages
 import Home from './pages/Home/Home';
 import Athletes from './pages/Athletes/Athletes';
+import DetailAthlete from './pages/Athletes/[id]';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -26,16 +28,29 @@ import '@ionic/react/css/display.css';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/" component={Home} />
-        <Route path="/athletes" component={Athletes} exact />
-        <Route path={'athletes/users/:id'} component={UserDetailPage} />
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        staleTime: 20000,
+        retry: 2,
+      },
+    },
+  });
+  return (
+    <QueryClientProvider client={queryClient}>
+      <IonApp>
+        <IonReactRouter>
+          <IonRouterOutlet>
+            <Route exact path="/" component={Home} />
+            <Route path="/athletes" component={Athletes} exact />
+            <Route path={'athletes/:id'} component={DetailAthlete} />
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </IonApp>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

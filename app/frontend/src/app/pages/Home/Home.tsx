@@ -1,25 +1,15 @@
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-} from '@ionic/react';
 import React from 'react';
+import Wrapper from 'app/frontend/src/app/components/Wrapper/Wrapper';
 import './Home.css';
 
 const Home: React.FC = () => {
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Home</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <div>Home</div>
-      </IonContent>
-    </IonPage>
+    <Wrapper title="Mauricio's Application">
+      <div>
+        <p>Welcome</p>
+        <p>this is a page to test ionic library</p>
+      </div>
+    </Wrapper>
   );
 };
 
