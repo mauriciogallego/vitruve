@@ -13,10 +13,23 @@ permissions:
 jobs:
   main:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+        options: >-
+          --health-cmd="pg_isready -U test_user -d test_db"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=2
+
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       # Cache Yarn dependencies
       - name: Cache Yarn Dependencies
@@ -37,7 +50,14 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - uses: nrwl/nx-set-shas@v4
+      - name: Wait for PostgreSQL to be ready
+        run: until pg_isready -h localhost -p 5432 -U test_user; do echo "Waiting for postgres..."; sleep 5; done
 
-      # Nx Affected runs only tasks affected by the changes in this PR/commit
-      - run: npx nx affected --base=origin/main --head=HEAD -t lint test build
+      - name: Run Migrations
+        run: yarn run migrations:test
+
+      - name: Run Tests for app-backend-e2e
+        run: yarn test:backend
+        env:
+          DATABASE_URL: postgres://test_user:test_password@localhost:5432/test_db
+          NODE_ENV: test
