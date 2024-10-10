@@ -6,7 +6,7 @@
     "backend": "nx serve app-backend",
     "test:backend": "nx e2e app-backend-e2e",
     "frontend": "nx serve app-frontend",
-    "migrations:test": "prisma db push"
+    "migrations:test": "prisma db push --schema=app/backend/prisma/schema.prisma"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} /Users/mauriciogallego/Desktop/proyectos/test/vitruve/app/backend/prisma/seeders/seed.ts"
