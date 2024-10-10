@@ -40,4 +40,4 @@ jobs:
       - uses: nrwl/nx-set-shas@v4
 
       # Nx Affected runs only tasks affected by the changes in this PR/commit
-      - run: npx nx affected -t lint test build
+      - run: npx nx affected --base=origin/main --head=HEAD -t lint test build
