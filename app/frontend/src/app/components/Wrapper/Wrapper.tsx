@@ -4,6 +4,7 @@ import {
   IonHeader,
   IonMenuButton,
   IonPage,
+  IonText,
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
@@ -13,8 +14,9 @@ import './Wrapper.css';
 
 const Wrapper: React.FC<{
   children?: ReactElement[] | ReactElement;
+  className?: string;
   title: string;
-}> = ({ children, title }) => {
+}> = ({ children, className, title }) => {
   return (
     <>
       <Menu contentId="main-content" />
@@ -24,10 +26,13 @@ const Wrapper: React.FC<{
             <IonButtons slot="end">
               <IonMenuButton />
             </IonButtons>
-            <IonTitle>{title}</IonTitle>
+            <IonTitle>Vitruve Test</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonContent className="wrapper" fullscreen>
+        <IonText color="primary">
+          <h1>{title}</h1>
+        </IonText>
+        <IonContent className={className} fullscreen>
           {children}
         </IonContent>
       </IonPage>
