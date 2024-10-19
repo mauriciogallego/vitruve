@@ -60,6 +60,6 @@ jobs:
           DATABASE_URL: postgres://test_user:test_password@localhost:5432/test_db
 
       - name: Run Tests for app-backend-e2e
-        run: yarn test:backend
+        run: yarn test:backend --verbose
         env:
           DATABASE_URL: postgres://test_user:test_password@localhost:5432/test_db
