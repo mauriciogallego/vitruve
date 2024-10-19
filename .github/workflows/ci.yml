@@ -14,9 +14,6 @@ jobs:
   main:
     runs-on: ubuntu-latest
 
-    env:
-      DATABASE_URL: postgres://test_user:test_password@localhost:5432/test_db
-
     services:
       postgres:
         image: postgres:14
@@ -60,9 +57,9 @@ jobs:
       - name: Run Migrations
         run: yarn run migrations:test
         env:
-          DATABASE_URL: env.DATABASE_URL
+          DATABASE_URL: postgres://test_user:test_password@localhost:5432/test_db
 
       - name: Run Tests for app-backend-e2e
         run: yarn test:backend
         env:
-          DATABASE_URL: env.DATABASE_URL
+          DATABASE_URL: postgres://test_user:test_password@localhost:5432/test_db
